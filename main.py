@@ -3,6 +3,8 @@ from langchain_openai import ChatOpenAI
 from agents import AnalyzerAgents
 from tasks import AnalyzerTasks
 from dotenv import load_dotenv
+from file_io import save_markdown
+import json
 
 load_dotenv()
 OpenAIGPT4 = ChatOpenAI(model="gpt-4o")
@@ -21,20 +23,25 @@ class AnalyzerCrew:
         try:
             competitor_finder = agents.competitor_finder_agent()
             webpage_analyzer = agents.webpage_analyzer_agent()
+            compiler = agents.compiler_agent()
         except Exception as e:
             print(f"Error creating agents: {str(e)}")
             return
         # Instantiate the tasks
+        # comment
         competitor_finder_task = tasks.competitor_finder_task(
             competitor_finder, self.company, self.region
         )
         webpage_analyzer_task = tasks.webpage_analyzer_task(
             webpage_analyzer, [competitor_finder_task]
         )
+        compiler_task = tasks.compiler_task(
+            compiler, [competitor_finder_task, webpage_analyzer_task], save_markdown)
         # Form the crew
         crew = Crew(
-            agents=[competitor_finder, webpage_analyzer],
-            tasks=[competitor_finder_task, webpage_analyzer_task],
+            agents=[competitor_finder, webpage_analyzer, compiler],
+            tasks=[competitor_finder_task,
+                   webpage_analyzer_task, compiler_task],
             process=Process.hierarchical,
             manager_llm=OpenAIGPT4,
             verbose=True,
