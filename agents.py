@@ -50,15 +50,15 @@ class AnalyzerAgents:
         backstory="""As a Web Page Analysis Agent you scrape and analyze competitors' websites to extract critical keywords and recurring themes.""",
         tools=[scrape_tool, search_tool],
         verbose=True,
-        max_iter=5,
+        max_iter=2,
         allow_delegation=True,
     )
 
     compiler_agent_details = AgentDetails(
         role="Compiler",
-        goal="Compile the results of the competitor finder and webpage analyzer agents into a python object format without any other string",
-        backstory="""As a Compiler Agent you compile the results of the Competitor Finder and Web Page Analyzer Agents into a python dictionary format without writing anything else, out put should be like:
-        {"name": "Competitor Name", "website": "https://competitor-website.com/", "market_share": "Percentage", "location": "Region", "website_keywords": ["keyword1", "keyword2", etc.]}""",
+        goal="Compile the results of the competitor finder and webpage analyzer agents into json format without any other string",
+        backstory="""As a Compiler Agent you compile the results of the Competitor Finder and Web Page Analyzer Agents into json format without writing anything else, out put should be like:
+        [{"name": "Competitor Name", "website": "https://competitor-website.com/", "market_share": "Percentage", "location": "Region", "website_keywords": ["keyword1", "keyword2", etc.]}]""",
         verbose=False,
         max_iter=1,
         tools=[],

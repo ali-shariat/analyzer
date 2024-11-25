@@ -42,11 +42,11 @@ class AnalyzerTasks:
 
     def compiler_task(self, agent, context, callback_function):
         return Task(
-            description="Compile the results of the competitor finder and webpage analyzer agents and it should start with just { ",
+            description="Compile the results of the competitor finder and webpage analyzer agents into json format and it should start and end with [ and ]",
             agent=agent,
             context=context,
             expected_output="""
-            {"name": "Competitor Name", "website": "https://competitor-website.com/", "market_share": "Percentage", "location": "Region", "website_keywords": ["keyword1", "keyword2", etc.]}
+            [{"name": "Competitor Name", "website": "https://competitor-website.com/", "market_share": "Percentage", "location": "Region", "website_keywords": ["keyword1", "keyword2", etc.]}]
             """,
             callback=callback_function,
         )

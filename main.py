@@ -4,7 +4,9 @@ from agents import AnalyzerAgents
 from tasks import AnalyzerTasks
 from dotenv import load_dotenv
 from file_io import save_markdown
+from fastapi import FastAPI
 import json
+
 
 load_dotenv()
 OpenAIGPT4 = ChatOpenAI(model="gpt-4o")
@@ -50,30 +52,24 @@ class AnalyzerCrew:
         result = crew.kickoff()
         return result
 
-
-if __name__ == "__main__":
-    print("## Welcome to Competitive Intelligence Analyzer")
-    print("-------------------------------")
-    company = input(
-        (
-            """
-      Please enter the name of the company:
-    """
-        )
-    )
-    region = input(
-        (
-            """
-      Enter the region or country where the company operates:
-    """
-        )
-    )
-
+app = FastAPI()
+@app.get("/")
+def root():
+    return {"message": "Welcome to Competitive Intelligence Analyzer"}
+@app.get("/analyze/{company}/{region}")
+def get_company_name_and_region(company: str, region: str):
     analyzer_crew = AnalyzerCrew(company, region)
     result = analyzer_crew.run()
-    print("\n\n########################")
-    print(
-        f"## Here is the competitive intelligence analysis for {company} in {region}:"
-    )
-    print("########################\n")
-    print(result)
+    
+    if not result:
+        return {"error": "Analysis failed"}
+    
+    # Log raw result before parsing
+    print(f"Raw result from crew: {result.raw}")
+    
+    try:
+        return json.loads(result.raw)
+    except json.JSONDecodeError as e:
+        print(f"JSON decoding error: {e}")
+        return {"error": f"Invalid JSON: {e}"}
+    
