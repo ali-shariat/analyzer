@@ -1,94 +1,85 @@
 [
     {
-        "name": "Bell Canada",
-        "website": "https://www.bell.ca",
-        "market_share": "29%",
-        "location": "Nationwide in Canada",
+        "name": "H&M",
+        "website": "https://www.hm.com",
+        "market_share": "10%",
+        "location": "Toronto, Vancouver, Montreal",
         "website_keywords": [
-            "Bell",
-            "Mobility",
-            "Internet",
-            "TV",
-            "Bundles",
-            "Smart Home",
-            "Home Phone",
-            "Black Friday",
-            "5G",
-            "fibre networks",
-            "customer service",
-            "promotions",
-            "sustainable practices"
+            "fashion",
+            "homeware",
+            "beauty",
+            "women's clothing",
+            "kids' clothing",
+            "affordable prices",
+            "shopping destination"
         ]
     },
     {
-        "name": "Telus Communications",
-        "website": "https://www.telus.com",
-        "market_share": "28%",
-        "location": "Nationwide in Canada",
+        "name": "Old Navy",
+        "website": "https://www.oldnavy.gap.com",
+        "market_share": "7%",
+        "location": "Calgary, Ottawa",
         "website_keywords": [
-            "TELUS",
-            "Mobility",
-            "5G",
-            "Samsung Galaxy S24",
-            "Black Friday Deals",
-            "PureFibre Internet",
-            "Disney+",
-            "My TELUS app",
-            "SmartHome Security",
-            "Social Impact",
-            "Unlimited data plans",
-            "Connectivity",
-            "Wireless service",
-            "Promotions"
+            "Old Navy",
+            "Family Fashion",
+            "Affordable Apparel",
+            "Men's Clothing",
+            "Women's Clothing",
+            "Kids Clothing",
+            "Baby and Maternity Wear",
+            "Fashion Sales",
+            "Trendy Styles",
+            "Online Shopping"
         ]
     },
     {
-        "name": "Shaw Communications",
-        "website": "https://www.shaw.ca",
-        "market_share": "13%",
-        "location": "Primarily Western Canada",
-        "website_keywords": [
-            "Shaw",
-            "Internet",
-            "TV",
-            "Mobile",
-            "Home Phone",
-            "Rogers",
-            "Xfinity",
-            "5G network",
-            "entertainment",
-            "bundles",
-            "discounts",
-            "offers",
-            "Canada",
-            "sports network"
-        ]
-    },
-    {
-        "name": "Vid\u00e9otron",
-        "website": "https://www.videotron.com",
-        "market_share": "15%",
-        "location": "Primarily Quebec",
-        "website_keywords": []
-    },
-    {
-        "name": "Quebecor",
-        "website": "https://www.quebecor.com",
+        "name": "Gap",
+        "website": "https://www.gap.com",
         "market_share": "5%",
-        "location": "Primarily Quebec",
+        "location": "Toronto, Vancouver",
         "website_keywords": [
-            "Quebecor",
-            "telecommunications",
-            "media",
-            "innovation",
-            "customer service",
-            "sports and entertainment",
-            "social responsibility",
-            "investor relations",
-            "careers",
-            "corporate success",
-            "corporate history",
-            "financial performance"
+            "Gap",
+            "Free shipping",
+            "Black Friday",
+            "50% off",
+            "60% off",
+            "Women",
+            "Men",
+            "Kids",
+            "Gifts"
+        ]
+    },
+    {
+        "name": "Uniqlo",
+        "website": "https://www.uniqlo.com",
+        "market_share": "3%",
+        "location": "Toronto, Alberta",
+        "website_keywords": [
+            "WOMEN",
+            "MEN",
+            "KIDS",
+            "BABY",
+            "order processing",
+            "high order volume"
+        ]
+    },
+    {
+        "name": "Aritzia",
+        "website": "https://www.aritzia.com",
+        "market_share": "2%",
+        "location": "Vancouver, Toronto",
+        "website_keywords": [
+            "Aritzia",
+            "women\u2019s clothing",
+            "luxury fashion",
+            "jackets",
+            "coats",
+            "sweaters",
+            "dresses",
+            "personalized shopping experience",
+            "upscale retail",
+            "exclusive brands",
+            "fashion industry"
         ]
     }
 ]

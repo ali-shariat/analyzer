@@ -6,7 +6,10 @@ from dotenv import load_dotenv
 from file_io import save_markdown
 from fastapi import FastAPI
 import json
-
+import requests
+from fastapi.middleware.wsgi import WSGIMiddleware
+from dash import Dash, dcc, html, Input, Output, callback, State
+import uvicorn
 
 load_dotenv()
 OpenAIGPT4 = ChatOpenAI(model="gpt-4o")
@@ -52,24 +55,72 @@ class AnalyzerCrew:
         result = crew.kickoff()
         return result
 
+
 app = FastAPI()
+
+
 @app.get("/")
 def root():
     return {"message": "Welcome to Competitive Intelligence Analyzer"}
+
+
 @app.get("/analyze/{company}/{region}")
 def get_company_name_and_region(company: str, region: str):
     analyzer_crew = AnalyzerCrew(company, region)
     result = analyzer_crew.run()
-    
+
     if not result:
         return {"error": "Analysis failed"}
-    
+
     # Log raw result before parsing
     print(f"Raw result from crew: {result.raw}")
-    
+
     try:
         return json.loads(result.raw)
     except json.JSONDecodeError as e:
         print(f"JSON decoding error: {e}")
         return {"error": f"Invalid JSON: {e}"}
-    
+
+style = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
+app_dash = Dash(__name__, requests_pathname_prefix="/dash/",
+                external_stylesheets=style) # type: ignore
+
+app_dash.layout = html.Div(children=[
+    html.H1(children='Competitive Intelligence Analyzer'),
+
+    html.Div(children='''
+        Enter the company name and region to analyze:
+    '''),
+
+    dcc.Input(id='input-company', type='text', placeholder='Company Name'),
+    dcc.Input(id='input-region', type='text', placeholder='Region'),
+    html.Button(id='submit-button', n_clicks=0, children='Submit'),
+
+    html.Div(id='output-container')
+])
+
+
+@app_dash.callback(
+    Output('output-container', 'children'),
+    Input('submit-button', 'n_clicks'),
+    State('input-company', 'value'), 
+    State('input-region', 'value')
+)
+def update_output(n_clicks, company, region):
+    if n_clicks == 1 and company and region:
+        try:
+            response = requests.get(
+                f"http://127.0.0.1:8000/analyze/{company}/{region}")
+            if response.status_code == 200:
+                return json.dumps(response.json(), indent=4)
+            else:
+                return f"Error: {response.status_code} - {response.text}"
+        except Exception as e:
+            return f"Exception: {e}"
+    return "Enter the company name and region, then click Submit."
+
+
+app.mount("/dash", WSGIMiddleware(app_dash.server))
+
+if __name__ == "__main__":
+    uvicorn.run(app)
